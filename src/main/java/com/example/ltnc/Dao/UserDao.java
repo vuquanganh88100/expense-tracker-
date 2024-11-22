@@ -11,6 +11,7 @@ public class UserDao {
     private static final String GET_USER_SQL="select * FROM user";
     static Statement stm = null;
     static ResultSet rs = null;
+    private static final String Login="SELECT *FROM user  WHERE user_name=?";
 
     public void add(UserEntity userEntity) {
         try (Connection connection=databaseUtils.connect();
@@ -40,5 +41,28 @@ public class UserDao {
             e.printStackTrace();
             System.out.println( e.getMessage());
         }
+    }
+    public UserEntity user(String userName){
+        UserEntity user=new UserEntity();
+
+        try (Connection connection=databaseUtils.connect();
+             PreparedStatement preparedStatement = connection.prepareStatement(Login)) {
+            // gan userName vao ?
+            preparedStatement.setString(1,userName);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                user.setId(resultSet.getInt("id"));
+                user.setUserGmail(resultSet.getString("user_gmail"));
+                user.setPassword(resultSet.getString("password"));
+                System.out.println(resultSet.getTime("created_at").getClass().getName());
+                user.setCreatedTime(resultSet.getTime("created_at"));
+            }else{
+                return  null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error " + e.getMessage());
+        }
+        return user;
     }
 }

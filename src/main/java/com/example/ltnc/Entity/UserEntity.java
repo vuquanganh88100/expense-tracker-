@@ -9,6 +9,9 @@ public class UserEntity {
     private String userGmail;
     private Time createdTime;
     private String password;
+    public UserEntity(){
+
+    }
 
     public UserEntity(String userName, String userGmail, Time createdTime, String password) {
         this.userName = userName;
