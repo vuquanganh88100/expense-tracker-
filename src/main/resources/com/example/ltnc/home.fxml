@@ -29,7 +29,7 @@
                   </font>
                </Button>
 
-               <!-- Category Button -->
+               <!-- CategoryController Button -->
                <Button fx:id="categoryButton" mnemonicParsing="false" onAction="#category" prefHeight="50.0" prefWidth="200.0" styleClass="menu-button" text="  Category">
                   <font>
                      <Font size="18.0" />

@@ -1,6 +1,5 @@
 package com.example.ltnc;
 
-import com.almasb.fxgl.entity.action.Action;
 import com.example.ltnc.Dao.UserDao;
 import com.example.ltnc.Entity.UserEntity;
 import com.example.ltnc.Service.SessionManager;
@@ -46,7 +45,6 @@ public class LoginController {
         String userName= usernameField.getText();
         String password=passwordField.getText();
         UserService userService=new UserService();
-        boolean loginSucess=false;
         UserEntity user=userService.authenticated(userName,password);
         if(user!=null){
             SessionManager.getInstance().setUserId(user.getId());

@@ -11,5 +11,7 @@ module com.example.ltnc {
     requires java.sql;
 
     opens com.example.ltnc to javafx.fxml;
+    opens com.example.ltnc.Entity.Category to javafx.base;
+
     exports com.example.ltnc;
 }
