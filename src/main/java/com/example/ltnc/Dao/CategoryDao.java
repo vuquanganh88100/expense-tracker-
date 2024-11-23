@@ -17,6 +17,9 @@ public class CategoryDao {
 
     private static final String INSERT_CATEGORT="INSERT INTO category (user_id, type, name, created_at) VALUES (?, ?, ?, ?)";
     private static final String GET_CATEGORY_BY_ID="SELECT * FROM category WHERE category.user_id = ?";
+    private static final String COMBO_BOX="" +
+            "SELECT * FROM category WHERE category.user_id = ?  AND category.type = ?" +
+            "";
     public void add(CategoryEntiy categoryEntiy){
         try (Connection connection=databaseUtils.connect();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_CATEGORT)) {
@@ -58,4 +61,28 @@ public class CategoryDao {
         }
         return categoryEntiyList;
     }
+    public List<String> categoryBox(int userId,String type){
+        List<String> categoryListName=new ArrayList<>();
+
+        try (Connection connection=databaseUtils.connect();
+             PreparedStatement preparedStatement = connection.prepareStatement(COMBO_BOX)) {
+            preparedStatement.setInt(1,userId);
+            preparedStatement.setString(2,type);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while ((resultSet.next())){
+                String categoryName=resultSet.getString("name");
+                categoryListName.add(categoryName);
+            }
+            for(String s:categoryListName){
+                System.out.println(s);
+            }
+            System.out.println("get categorybox successfully");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error get  category: " + e.getMessage());
+        }
+        return categoryListName;
+    }
+
 }

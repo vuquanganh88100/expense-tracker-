@@ -24,6 +24,5 @@ public class AddCategoryController {
         String type=typeComboBox.getValue();
         CategoryService categoryService=new CategoryService();
         categoryService.add(nameCategory,type);
-
     }
 }

@@ -12,6 +12,6 @@ module com.example.ltnc {
 
     opens com.example.ltnc to javafx.fxml;
     opens com.example.ltnc.Entity.Category to javafx.base;
-
+    opens com.example.ltnc.Entity to javafx.base;
     exports com.example.ltnc;
 }

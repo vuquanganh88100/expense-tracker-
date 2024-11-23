@@ -71,7 +71,6 @@ public class HomeController {
             loadContent("income.fxml");
         }
 
-        // Method to load a new FXML into the contentArea
         private void loadContent(String fxmlFile) {
             try {
                 System.out.println("Path to FXML: " + getClass().getResource(fxmlFile));
