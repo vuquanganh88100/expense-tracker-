@@ -1,11 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ltnc.Income">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ltnc.IncomeController">
    <children>
-      <Label layoutX="250.0" layoutY="162.0" text="incom" />
+      <Label layoutX="20.0" layoutY="14.0" text="EXPENSE LIST" />
+      <TableView fx:id="incomeTable" layoutX="20.0" layoutY="41.0" onMouseClicked="#getIncomeDetail" prefHeight="217.0" prefWidth="660.0">
+         <columns>
+            <TableColumn fx:id="idData" prefWidth="64.0" text="ID" />
+            <TableColumn fx:id="categoryData" prefWidth="109.0" text="Category" />
+            <TableColumn fx:id="itemData" prefWidth="100.0" text="Item" />
+            <TableColumn fx:id="costData" prefWidth="113.0" text="Cost" />
+            <TableColumn fx:id="descriptionData" prefWidth="136.0" text="Description" />
+            <TableColumn fx:id="dateData" prefWidth="137.0" text="Date" />
+         </columns>
+      </TableView>
+      <GridPane alignment="CENTER" hgap="20.0" layoutY="280.0" prefWidth="660.0" vgap="10.0">
+         <children>
+            <Label text="Category:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <ComboBox fx:id="categoryComboBox" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <Label text="Item:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <TextField fx:id="itemTextField" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Cost:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <TextField fx:id="costTextField" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Description:" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+            <TextField fx:id="Description" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+            <Label text="Date:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <DatePicker fx:id="datePicker" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+         </children>
+         <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
+      </GridPane>
+      <HBox alignment="CENTER" layoutY="420.0" spacing="10.0">
+         <children>
+            <Button fx:id="addButton" onAction="#add" text="Add" />
+            <Button fx:id="updateButton" text="Update" />
+            <Button fx:id="deleteButton" text="Delete" />
+         </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </HBox>
    </children>
 </AnchorPane>
