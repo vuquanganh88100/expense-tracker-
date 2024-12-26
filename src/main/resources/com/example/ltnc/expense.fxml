@@ -18,7 +18,7 @@
     <children>
         <!-- TableView -->
         <Label layoutX="20.0" layoutY="14.0" text="EXPENSE LIST" />
-        <TableView fx:id="expenseTable" layoutX="20.0" layoutY="41.0" prefHeight="217.0" prefWidth="660.0">
+        <TableView fx:id="expenseTable" layoutX="20.0" layoutY="41.0"  onMouseClicked="#getExpenseDetail" prefHeight="217.0" prefWidth="660.0">
             <columns>
                 <TableColumn fx:id="idData" prefWidth="64.0" text="ID" />
                 <TableColumn fx:id="categoryData" prefWidth="109.0" text="Category" />
