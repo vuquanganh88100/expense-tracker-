@@ -14,10 +14,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ltnc.IncomeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" stylesheets="@style/expense.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ltnc.IncomeController">
    <children>
-      <Label layoutX="20.0" layoutY="14.0" text="EXPENSE LIST" />
-      <TableView fx:id="incomeTable" layoutX="20.0" layoutY="41.0" onMouseClicked="#getIncomeDetail" prefHeight="217.0" prefWidth="660.0">
+      <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="14.0" spacing="20.0">
+         <Label styleClass="header-label" text="INCOME LIST" />
+         <HBox alignment="CENTER_RIGHT" spacing="10.0" HBox.hgrow="ALWAYS" />
+      </HBox>
+      <TableView fx:id="incomeTable" layoutX="20.0" layoutY="41.0" onMouseClicked="#getIncomeDetail" prefHeight="273.0" prefWidth="660.0">
          <columns>
             <TableColumn fx:id="idData" prefWidth="64.0" text="ID" />
             <TableColumn fx:id="categoryData" prefWidth="109.0" text="Category" />
@@ -27,7 +30,7 @@
             <TableColumn fx:id="dateData" prefWidth="137.0" text="Date" />
          </columns>
       </TableView>
-      <GridPane alignment="CENTER" hgap="20.0" layoutY="280.0" prefWidth="660.0" vgap="10.0">
+      <GridPane alignment="CENTER" hgap="20.0" layoutY="311.0" prefHeight="138.0" prefWidth="660.0" vgap="10.0">
          <children>
             <Label text="Category:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
             <ComboBox fx:id="categoryComboBox" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
@@ -42,8 +45,8 @@
          </children>
          <columnConstraints>
             <ColumnConstraints />
-            <ColumnConstraints />
-            <ColumnConstraints />
+            <ColumnConstraints maxWidth="200.0" minWidth="200.0" prefWidth="200.0" />
+            <ColumnConstraints maxWidth="63.0" minWidth="63.0" prefWidth="63.0" />
             <ColumnConstraints />
          </columnConstraints>
          <rowConstraints>
@@ -52,15 +55,13 @@
             <RowConstraints />
          </rowConstraints>
       </GridPane>
-      <HBox alignment="CENTER" layoutY="420.0" spacing="10.0">
-         <children>
-            <Button fx:id="addButton" onAction="#add" text="Add" />
-            <Button fx:id="updateButton" text="Update" />
-            <Button fx:id="deleteButton" text="Delete" />
-         </children>
-         <padding>
-            <Insets top="10.0" />
-         </padding>
+
+      <HBox alignment="CENTER" layoutY="453.0" spacing="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <Button fx:id="addButton" onAction="#add" styleClass="primary-button" text="Add" />
+         <Button fx:id="updateButton" onAction="#update" styleClass="primary-button" text="Update" />
+         <Button fx:id="deleteButton" onAction="#delete" styleClass="danger-button" text="Delete" />
       </HBox>
+      <Button fx:id="importButton" layoutX="466.0" layoutY="13.0" styleClass="action-button" text="Import Data" />
+      <Button fx:id="exportButton" layoutX="569.0" layoutY="13.0" styleClass="action-button" text="Export Data" />
    </children>
 </AnchorPane>
