@@ -17,10 +17,12 @@ public class ExpenseDao {
             "VALUES (?, ?, ?, ?, ?, ?, ?);";
     private static final String GET_EXPENSE="SELECT * FROM expense inner JOIN category ON expense.category_id=category.id\n" +
             "WHERE expense.user_id = ?";
+    private static final String UPDATE_EXPENSE= "UPDATE expense " +
+            "SET category_id=? ,item = ?, description = ?, money = ?,created_at = ?, date = ? WHERE id = ?";
+    private static final String DELETE_EXPENSE="DELETE FROM expense WHERE id = ? ";
     public void add(ExpenseEntity expense){
         try (Connection connection = databaseUtils.connect();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_EXPENSE)) {
-
             // Set các tham số
             preparedStatement.setInt(1, expense.getUser().getId());
             preparedStatement.setInt(2, expense.getCategoryEntiy().getId());
@@ -30,11 +32,11 @@ public class ExpenseDao {
             preparedStatement.setTimestamp(6,expense.getCreated_at());
             preparedStatement.setDate(7, Date.valueOf(expense.getDate()));
             preparedStatement.executeUpdate();
-            System.out.println("Insert expense successfully");
+            System.out.println("Update expense successfully");
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Error insert expense: " + e.getMessage());
+            System.out.println("Error update expense: " + e.getMessage());
         }
 
     }
@@ -63,5 +65,37 @@ public class ExpenseDao {
             System.out.println("Error get data expense: " + e.getMessage());
         }
         return expenseEntityList;
+    }
+    public void update(ExpenseEntity expense){
+        try (Connection connection = databaseUtils.connect();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_EXPENSE)) {
+            // Set các tham số
+            preparedStatement.setInt(1, expense.getCategoryEntiy().getId());
+            preparedStatement.setString(2, expense.getItem());
+            preparedStatement.setString(3, expense.getDescription());
+            preparedStatement.setLong(4, expense.getMoney());
+            preparedStatement.setTimestamp(5,expense.getCreated_at());
+            preparedStatement.setDate(6, Date.valueOf(expense.getDate()));
+            preparedStatement.setInt(7,expense.getId());
+            preparedStatement.executeUpdate();
+            System.out.println("Update expense successfully");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error update expense: " + e.getMessage());
+        }
+
+    }
+    public void delete(Integer id){
+        try (Connection connection = databaseUtils.connect();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_EXPENSE)) {
+           preparedStatement.setInt(1,id);
+            preparedStatement.executeUpdate();
+            System.out.println("Delete expense successfully");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error Delete expense: " + e.getMessage());
+        }
     }
 }
