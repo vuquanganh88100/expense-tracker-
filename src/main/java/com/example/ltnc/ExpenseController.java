@@ -1,6 +1,8 @@
 package com.example.ltnc;
 
 import com.example.ltnc.Dao.CategoryDao;
+import com.example.ltnc.Dao.ExpenseDao;
+import com.example.ltnc.Entity.Category.CategoryEntiy;
 import com.example.ltnc.Entity.ExpenseEntity;
 import com.example.ltnc.Service.ExpenseService;
 import com.example.ltnc.Service.SessionManager;
@@ -10,9 +12,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ExpenseController {
     // form add data
@@ -43,7 +49,8 @@ public class ExpenseController {
     private TableColumn<ExpenseEntity, String> descriptionData;
     @FXML
     private TableColumn<ExpenseEntity, LocalDate> dateData;
-
+    private Map<String, Integer> categoryIdMap = new HashMap<>();
+    private static Integer expenseId;
     @FXML
     public void initialize() {
         int userId = SessionManager.getInstance().getUserId();
@@ -61,15 +68,17 @@ public class ExpenseController {
         System.out.println(expenseEntityList);
 
         // combobox
-        String type = "Expense";
-        CategoryDao categoryDao=new CategoryDao();
-        List<String> categoryListName = categoryDao.categoryBox(userId, type);
-        for(String s:categoryListName){
-            System.out.println(s);
-        }
-        ObservableList<String> observableCategoryList = FXCollections.observableArrayList(categoryListName);
+        CategoryDao categoryDao = new CategoryDao();
+        List<CategoryEntiy> categories = categoryDao.categoryBox(userId, "Expense");
 
-        categoryComboBox.setItems(observableCategoryList);
+        List<String> categoryNames = new ArrayList<>();
+
+        categories.forEach(category -> {
+            categoryIdMap.put(category.getName(), category.getId());
+            categoryNames.add(category.getName());
+        });
+
+        categoryComboBox.setItems(FXCollections.observableArrayList(categoryNames));
         categoryComboBox.getSelectionModel().selectFirst();
 
 
@@ -78,6 +87,7 @@ public class ExpenseController {
     @FXML
     public void add(){
         String category=categoryComboBox.getValue();
+        int categoryId=categoryIdMap.get(category);
         System.out.println(category);
         String item=itemTextField.getText();
         System.out.println(item);
@@ -85,7 +95,49 @@ public class ExpenseController {
         String description=Description.getText();
         LocalDate date= datePicker.getValue();
         ExpenseService expenseService=new ExpenseService();
-        expenseService.add(category,item,cost,description,date);
+        expenseService.add(categoryId,item,cost,description,date);
     }
+    @FXML
+    public void getExpenseDetail(MouseEvent mouseEvent){
+        ExpenseEntity selectedExpense=expenseTable.getSelectionModel().getSelectedItem();
+        if (selectedExpense != null) {
+            expenseId = selectedExpense.getId();
+            System.out.println(expenseId);
+            String category = selectedExpense.getCategoryEntiy().getName();
+            String item = selectedExpense.getItem();
+            long cost = selectedExpense.getMoney();
+            String description = selectedExpense.getDescription();
+            LocalDate date = selectedExpense.getDate();
+
+            categoryComboBox.setValue(category);
+            itemTextField.setText(item);
+            costTextField.setText(String.valueOf(cost));
+            Description.setText(description);
+            datePicker.setValue(date);
+        }
+    }
+    @FXML
+    public void update(){
+        String category=categoryComboBox.getValue();
+        int categoryId=categoryIdMap.get(category);
+        System.out.println(category);
+        String item=itemTextField.getText();
+        System.out.println(item);
+        Long cost= Long.valueOf(costTextField.getText());
+        String description=Description.getText();
+        LocalDate date= datePicker.getValue();
+        ExpenseService expenseService=new ExpenseService();
+        expenseService.update(categoryId,item,cost,description,date,expenseId);
+    }
+    @FXML
+    public void delete(){
+        ExpenseEntity selectedExpense=expenseTable.getSelectionModel().getSelectedItem();
+        if(selectedExpense!=null){
+            expenseId=selectedExpense.getId();
+            ExpenseDao expenseDao=new ExpenseDao();
+            expenseDao.delete(expenseId);
+        }
+    }
+
 
 }

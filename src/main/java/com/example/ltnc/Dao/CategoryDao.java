@@ -10,13 +10,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CategoryDao {
     private static DatabaseUtils databaseUtils=new DatabaseUtils();
 
     private static final String INSERT_CATEGORT="INSERT INTO category (user_id, type, name, created_at) VALUES (?, ?, ?, ?)";
-    private static final String GET_CATEGORY_BY_ID="SELECT * FROM category WHERE category.user_id = ?";
+    private static final String GET_CATEGORY_BY_USER_ID="SELECT * FROM category WHERE category.user_id = ?";
+    private static final String GET_CATEGORY_BY_ID="SELECT * FROM category WHERE category.id = ?";
+
     private static final String COMBO_BOX="" +
             "SELECT * FROM category WHERE category.user_id = ?  AND category.type = ?" +
             "";
@@ -35,11 +39,11 @@ public class CategoryDao {
             System.out.println("Error saving category: " + e.getMessage());
         }
     }
-    public List<CategoryEntiy> getCategoryById(int userId){
+    public List<CategoryEntiy> getCategoryByUserId(int userId){
         List<CategoryEntiy> categoryEntiyList=new ArrayList<>();
 
         try (Connection connection=databaseUtils.connect();
-             PreparedStatement preparedStatement = connection.prepareStatement(GET_CATEGORY_BY_ID)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_CATEGORY_BY_USER_ID)) {
             preparedStatement.setInt(1,userId);
             ResultSet resultSet = preparedStatement.executeQuery();
             System.out.println(resultSet);
@@ -61,28 +65,49 @@ public class CategoryDao {
         }
         return categoryEntiyList;
     }
-    public List<String> categoryBox(int userId,String type){
-        List<String> categoryListName=new ArrayList<>();
-
-        try (Connection connection=databaseUtils.connect();
+    public List<CategoryEntiy> categoryBox(int userId, String type) {
+        List<CategoryEntiy> categoryList = new ArrayList<>();
+        try (Connection connection = databaseUtils.connect();
              PreparedStatement preparedStatement = connection.prepareStatement(COMBO_BOX)) {
-            preparedStatement.setInt(1,userId);
-            preparedStatement.setString(2,type);
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setString(2, type);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while ((resultSet.next())){
-                String categoryName=resultSet.getString("name");
-                categoryListName.add(categoryName);
+
+            while (resultSet.next()) {
+                CategoryEntiy category = new CategoryEntiy();
+                category.setId(resultSet.getInt("id"));
+                category.setName(resultSet.getString("name"));
+                categoryList.add(category);
             }
-            for(String s:categoryListName){
-                System.out.println(s);
-            }
-            System.out.println("get categorybox successfully");
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Error get  category: " + e.getMessage());
+            System.out.println("Error get category: " + e.getMessage());
         }
-        return categoryListName;
+        return categoryList;
+    }
+    public CategoryEntiy getCategoryById(int categoryId){
+        CategoryEntiy categoryEntity = new CategoryEntiy();
+
+        try (Connection connection=databaseUtils.connect();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_CATEGORY_BY_ID)) {
+            preparedStatement.setInt(1,categoryId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            System.out.println(resultSet);
+            while (resultSet.next()) {
+                categoryEntity.setId(resultSet.getInt("id"));
+                categoryEntity.setName(resultSet.getString("name"));
+                categoryEntity.setCreatedtime(resultSet.getTimestamp("created_at"));
+                categoryEntity.setCategoryEnum(CategoryEnum.valueOf(resultSet.getString("type").toUpperCase()));
+
+            }
+            System.out.println("Get list category successfully");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error saving category: " + e.getMessage());
+        }
+        return categoryEntity;
     }
 
 }

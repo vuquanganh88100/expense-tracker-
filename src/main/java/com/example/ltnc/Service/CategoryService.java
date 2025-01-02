@@ -6,7 +6,10 @@ import com.example.ltnc.Entity.Category.CategoryEntiy;
 import com.example.ltnc.Entity.Category.CategoryEnum;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CategoryService {
     public void add(String name,String type){
@@ -22,6 +25,19 @@ public class CategoryService {
     public List<CategoryEntiy> categoryEntiy(int userId){
         CategoryDao categoryDao=new CategoryDao();
         CategoryEntiy categoryEntiy=new CategoryEntiy();
-        return  categoryDao.getCategoryById(userId);
+        return  categoryDao.getCategoryByUserId(userId);
     }
+//    public Map<String,Integer>getCategoryIdMap(String type,int userId){
+//        CategoryDao categoryDao=new CategoryDao();
+//        List<CategoryEntiy> categories = categoryDao.categoryBox(userId, type);
+//
+//        Map<String, Integer> categoryIdMap = new HashMap<>();
+//        List<String> categoryNames = new ArrayList<>();
+//
+//        categories.forEach(category -> {
+//            categoryIdMap.put(category.getName(), category.getId());
+//            categoryNames.add(category.getName());
+//        });
+//        return
+//    }
 }

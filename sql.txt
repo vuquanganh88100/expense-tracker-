@@ -1,0 +1,69 @@
+CREATE TABLE `category` (
+	`id` INT(10) NOT NULL AUTO_INCREMENT,
+	`user_id` INT(10) NOT NULL,
+	`type` ENUM('Expense','Income') NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`name` VARCHAR(50) NOT NULL DEFAULT '0' COLLATE 'utf8mb4_0900_ai_ci',
+	`created_at` TIMESTAMP NOT NULL,
+	PRIMARY KEY (`id`) USING BTREE,
+	INDEX `FK__user` (`user_id`) USING BTREE,
+	CONSTRAINT `FK__user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
+)
+COLLATE='utf8mb4_0900_ai_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=9
+;
+
+
+CREATE TABLE `expense` (
+	`id` INT(10) NOT NULL AUTO_INCREMENT,
+	`user_id` INT(10) NOT NULL,
+	`category_id` INT(10) NOT NULL,
+	`item` VARCHAR(2555) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`description` TEXT NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`money` BIGINT(19) NOT NULL,
+	`created_at` TIMESTAMP NOT NULL,
+	`date` DATE NOT NULL,
+	PRIMARY KEY (`id`) USING BTREE,
+	INDEX `FK__category` (`category_id`) USING BTREE,
+	INDEX `FK__user_expense` (`user_id`) USING BTREE,
+	CONSTRAINT `FK__category` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT `FK__user_expense` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
+)
+COLLATE='utf8mb4_0900_ai_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=6
+;
+
+CREATE TABLE `income` (
+	`id` INT(10) NOT NULL AUTO_INCREMENT,
+	`user_id` INT(10) NULL DEFAULT NULL,
+	`category_id` INT(10) NOT NULL,
+	`item` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`description` TEXT NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`money` BIGINT(19) NOT NULL,
+	`created_at` TIMESTAMP NOT NULL,
+	`date` DATE NOT NULL,
+	PRIMARY KEY (`id`) USING BTREE,
+	INDEX `FK__user_income` (`user_id`) USING BTREE,
+	INDEX `FK__category_income` (`category_id`) USING BTREE,
+	CONSTRAINT `FK__category_income` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT `FK__user_income` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
+)
+COLLATE='utf8mb4_0900_ai_ci'
+ENGINE=InnoDB
+;
+
+
+CREATE TABLE `user` (
+	`id` INT(10) NOT NULL AUTO_INCREMENT,
+	`user_name` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`user_gmail` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`password` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`created_at` TIME NULL DEFAULT NULL,
+	PRIMARY KEY (`id`) USING BTREE
+)
+COLLATE='utf8mb4_0900_ai_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=5
+;
+
