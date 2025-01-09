@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Date;
 
-public class ExpenseEntity {
+public class ExpenseEntity implements FinancialRecord {
     public ExpenseEntity(){
 
     }
@@ -77,6 +77,16 @@ public class ExpenseEntity {
 
     public LocalDate getDate() {
         return date;
+    }
+
+    @Override
+    public Timestamp getCreatedAt() {
+        return null;
+    }
+
+    @Override
+    public String getCategoryName() {
+        return null;
     }
 
     public void setDate(LocalDate date) {

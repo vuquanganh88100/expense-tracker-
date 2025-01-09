@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
+<?import javafx.scene.layout.VBox?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" stylesheets="@style/expense.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ltnc.ExpenseController">
     <children>
         <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="14.0" spacing="20.0">
@@ -20,7 +21,7 @@
             <HBox alignment="CENTER_RIGHT" spacing="10.0" HBox.hgrow="ALWAYS" />
         </HBox>
 
-        <TableView fx:id="expenseTable" layoutX="20.0" layoutY="60.0" onMouseClicked="#getExpenseDetail" prefHeight="251.0" prefWidth="660.0">
+        <TableView fx:id="expenseTable" layoutX="20.0" layoutY="60.0" onMouseClicked="#getExpenseDetail" prefHeight="260.0" prefWidth="660.0">
             <columns>
                 <TableColumn fx:id="idData" prefWidth="64.0" text="ID" />
                 <TableColumn fx:id="categoryData" prefWidth="109.0" text="Category" />
@@ -69,7 +70,51 @@
             <Button fx:id="updateButton" onAction="#update" styleClass="primary-button" text="Update" />
             <Button fx:id="deleteButton" onAction="#delete" styleClass="danger-button" text="Delete" />
         </HBox>
-          <Button fx:id="importButton" layoutX="466.0" layoutY="13.0" styleClass="action-button" text="Import Data" />
-          <Button fx:id="exportButton" layoutX="569.0" layoutY="13.0" styleClass="action-button" text="Export Data" />
+          <Button fx:id="importButton" layoutX="466.0" layoutY="13.0" onAction="#handleImportData" styleClass="action-button" text="Import Data" />
+          <Button fx:id="exportButton" layoutX="569.0" layoutY="13.0" styleClass="action-button" text="Export Data"  onAction="#handleExportData" />
     </children>
+    <AnchorPane fx:id="dateRangePane" layoutX="150.0" layoutY="100.0" prefHeight="200.0" prefWidth="400.0" visible="false"
+                style="-fx-background-color: white;
+                       -fx-border-color: #cccccc;
+                       -fx-border-width: 1px;
+                       -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+                       -fx-background-radius: 5px;
+                       -fx-border-radius: 5px;">
+        <children>
+            <VBox alignment="CENTER" spacing="10.0" layoutX="20.0" layoutY="20.0"
+                  style="-fx-padding: 20px;">
+                <Label text="Select Date Range for Export"
+                       style="-fx-font-size: 16px;
+                              -fx-font-weight: bold;
+                              -fx-padding: 0 0 10px 0;"/>
+                <HBox alignment="CENTER" spacing="10.0">
+                    <Label text="Start Date:"
+                           style="-fx-font-size: 14px;"/>
+                    <DatePicker fx:id="startDatePicker"
+                                style="-fx-pref-width: 200px;"/>
+                </HBox>
+                <HBox alignment="CENTER" spacing="10.0">
+                    <Label text="End Date:"
+                           style="-fx-font-size: 14px;"/>
+                    <DatePicker fx:id="endDatePicker"
+                                style="-fx-pref-width: 200px;"/>
+                </HBox>
+                <HBox alignment="CENTER" spacing="20.0"
+                      style="-fx-padding: 10px 0 0 0;">
+                    <Button text="Confirm" onAction="#confirmExport"
+                            style="-fx-background-color: #4CAF50;
+                                   -fx-text-fill: white;
+                                   -fx-padding: 8px 20px;
+                                   -fx-cursor: hand;
+                                   -fx-background-radius: 4px;"/>
+                    <Button text="Cancel" onAction="#cancelExport"
+                            style="-fx-background-color: #f44336;
+                                   -fx-text-fill: white;
+                                   -fx-padding: 8px 20px;
+                                   -fx-cursor: hand;
+                                   -fx-background-radius: 4px;"/>
+                </HBox>
+            </VBox>
+        </children>
+    </AnchorPane>
 </AnchorPane>

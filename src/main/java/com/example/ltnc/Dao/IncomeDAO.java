@@ -6,6 +6,7 @@ import com.example.ltnc.Entity.IncomeEntity;
 import com.example.ltnc.Utils.DatabaseUtils;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,5 +105,32 @@ public class IncomeDAO {
             e.printStackTrace();
             System.out.println("Error Delete income: " + e.getMessage());
         }
+    }
+
+    public List<IncomeEntity> getIncomeByDateRange(LocalDate startDate, LocalDate endDate) {
+        List<IncomeEntity> incomes = new ArrayList<>();
+        String query = "SELECT * FROM income WHERE date >= ? AND date <= ?";
+        try (Connection connection = databaseUtils.connect();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setTimestamp(1, Timestamp.valueOf(startDate.atStartOfDay()));
+            preparedStatement.setTimestamp(2, Timestamp.valueOf(endDate.atTime(23, 59, 59)));
+//            preparedStatement.setInt(3, userId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                IncomeEntity income = new IncomeEntity();
+                income.setId(resultSet.getInt("id"));
+                income.setItem(resultSet.getString("item"));
+                income.setDescription(resultSet.getString("description"));
+                income.setMoney(resultSet.getLong("money"));
+                income.setDate(resultSet.getDate("date").toLocalDate());
+                income.setCategoryEntiy(new CategoryDao().getCategoryById(resultSet.getInt("category_id")));
+                incomes.add(income);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return incomes;
     }
 }

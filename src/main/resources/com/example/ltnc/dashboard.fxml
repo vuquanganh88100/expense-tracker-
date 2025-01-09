@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" stylesheets="@style/dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ltnc.DashboardController">
+<AnchorPane prefHeight="600.0" prefWidth="698.0" stylesheets="@style/dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ltnc.DashboardController">
    <children>
       <!-- Income Data Section -->
-      <StackPane layoutX="15.0" layoutY="17.0" prefHeight="175.0" prefWidth="570.0">
-         <HBox alignment="BOTTOM_CENTER" prefHeight="175.0" prefWidth="570.0" styleClass="main-container">
+      <StackPane layoutX="15.0" layoutY="17.0" prefHeight="175.0" prefWidth="662.0">
+         <HBox alignment="BOTTOM_CENTER" prefHeight="175.0" prefWidth="649.0" styleClass="main-container">
             <children>
                <VBox alignment="CENTER" maxHeight="130.0" prefWidth="150.0" styleClass="income-box">
                   <HBox.margin>
@@ -47,13 +47,15 @@
             </children>
          </HBox>
          <Label styleClass="header-label" text="Income Data" StackPane.alignment="TOP_LEFT">
-            <padding><Insets left="20.0" /></padding>
+            <padding>
+               <Insets left="20.0" />
+            </padding>
          </Label>
       </StackPane>
 
       <!-- Expense Data Section -->
-      <StackPane layoutX="15.0" layoutY="212.0" prefHeight="175.0" prefWidth="570.0">
-         <HBox alignment="BOTTOM_CENTER" prefHeight="175.0" prefWidth="570.0" styleClass="main-container">
+      <StackPane layoutX="15.0" layoutY="212.0" prefHeight="175.0" prefWidth="662.0">
+         <HBox alignment="BOTTOM_CENTER" prefHeight="175.0" prefWidth="625.0" styleClass="main-container">
             <children>
                <VBox alignment="CENTER" maxHeight="130.0" prefWidth="150.0" styleClass="expense-box">
                   <HBox.margin>
@@ -88,13 +90,15 @@
             </children>
          </HBox>
          <Label styleClass="header-label" text="Expense Data" StackPane.alignment="TOP_LEFT">
-            <padding><Insets left="20.0" /></padding>
+            <padding>
+               <Insets left="20.0" />
+            </padding>
          </Label>
       </StackPane>
 
       <!-- Total Section -->
-      <StackPane layoutX="15.0" layoutY="407.0" prefHeight="175.0" prefWidth="570.0">
-         <HBox alignment="BOTTOM_CENTER" prefHeight="175.0" prefWidth="570.0" styleClass="main-container">
+      <StackPane layoutX="15.0" layoutY="407.0" prefHeight="175.0" prefWidth="662.0">
+         <HBox alignment="BOTTOM_CENTER" prefHeight="175.0" prefWidth="620.0" styleClass="main-container">
             <children>
                <VBox alignment="CENTER" maxHeight="130.0" minHeight="110.0" prefHeight="110.0" prefWidth="240.0" styleClass="total-box">
                   <HBox.margin>

@@ -14,6 +14,7 @@ public class UserDao {
     static ResultSet rs = null;
     private static final String Login="SELECT *FROM user  WHERE user_name=?";
     private static final String getInfo="SELECT * FROM user WHERE user.id=?";
+    private static final String checkExist="SELECT * FROM user u WHERE u.user_name= ?  OR u.user_gmail = ? ";
     public UserEntity getInfo() {
         UserEntity user = null;
         String getInfo = "SELECT * FROM user WHERE id = ?";
@@ -91,5 +92,23 @@ public class UserDao {
             System.out.println("Error " + e.getMessage());
         }
         return user;
+    }
+    public boolean checkExist(String userName,String userEmail){
+        boolean exist=false;
+        UserEntity user = null;
+        try (Connection connection = databaseUtils.connect();
+             PreparedStatement preparedStatement = connection.prepareStatement(checkExist)) {
+
+            preparedStatement.setString(1, userName);
+            preparedStatement.setString(2, userEmail);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                exist=true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error : " + e.getMessage());
+        }
+        return exist;
     }
 }

@@ -14,7 +14,6 @@ public class    HelloApplication extends Application {
 
 
         URL fxmlFile = getClass().getResource("/com/example/ltnc/login.fxml");
-//        URL fxmlFile = getClass().getResource("/com/example/ltnc/ManageStudent.fxml");
 
         if (fxmlFile == null) {
             throw new IllegalStateException("FXML file not found!");

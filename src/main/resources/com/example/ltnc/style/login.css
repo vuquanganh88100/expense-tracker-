@@ -1,0 +1,54 @@
+
+.loginPane {
+    -fx-background-color: #00FFFF;
+    -fx-padding: 20;
+    -fx-alignment: center;
+}
+#logoImage {
+    -fx-effect: dropshadow(three-pass-box, black, 10, 0, 0, 5);
+}
+
+.registerLabel {
+    -fx-font-size: 31px;
+    -fx-text-fill: #333;
+    -fx-font-weight: bold;
+}
+
+.formLabel {
+    -fx-font-size: 14px;
+    -fx-text-fill: #555;
+}
+
+.inputField {
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 5;
+    -fx-padding: 5;
+    -fx-font-size: 14px;
+}
+
+.signupButton, .loginButton {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-border-radius: 5;
+    -fx-padding: 10px 20px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, black, 5, 0, 0, 3);
+}
+.signupButton:hover, .loginButton:hover {
+    -fx-background-color: #45a049;
+    -fx-cursor: hand;
+}
+
+.inputField {
+    -fx-pref-width: 236px;
+    -fx-pref-height: 25px;
+}
+
+#loginPane {
+    -fx-alignment: center;
+    -fx-padding: 20px;
+    -fx-spacing: 20px;
+}

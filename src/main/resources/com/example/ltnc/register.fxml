@@ -13,40 +13,31 @@
         <AnchorPane prefHeight="400.0" prefWidth="273.0" style="-fx-background-color: #00FFFF;">
             <children>
                 <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="54.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" />
-                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="72.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="62.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../../../../../../../Desktop/Managing-Money.png" />
                     </image>
                 </ImageView>
-                <Label layoutX="16.0" layoutY="261.0" text="Registration Form" textFill="#1c7e8d">
+                <Label layoutX="60.0" layoutY="236.0" style="-fx-text-fill: #333; -fx-font-weight: bold;" text="Login here" textFill="#1c7e8d">
                     <font>
                         <Font size="31.0" />
                     </font>
                 </Label>
+            <Button layoutX="92.0" layoutY="314.0" mnemonicParsing="false" onAction="#login" prefHeight="27.0" prefWidth="89.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-effect: dropshadow(three-pass-box, black, 5, 0, 0, 3); -fx-cursor: hand; -fx-border-radius: 5px;" text="LOG IN">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
             </children>
         </AnchorPane>
-      <Label layoutX="300.0" layoutY="79.0" text="username">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="300.0" layoutY="125.0" text="gmail">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="300.0" layoutY="180.0" text="password">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <TextField fx:id="UserName" layoutX="408.0" layoutY="80.0" />
-      <TextField fx:id="Password" layoutX="408.0" layoutY="181.0" />
-      <TextField fx:id="Gmail" layoutX="408.0" layoutY="127.0" />
-      <Button layoutX="436.0" layoutY="250.0" mnemonicParsing="false" onAction="#addUser" text="SUBMIT">
-         <font>
-            <Font size="19.0" />
-         </font>
-      </Button>
+      <TextField fx:id="UserName" layoutX="321.0" layoutY="162.0" prefHeight="25.0" prefWidth="216.0" promptText="User Name" style="-fx-border-color: #0598ff; -fx-background-color: transparent; -fx-border-width: 0px 0px 2px 0px;" />
+      <TextField fx:id="Password" layoutX="321.0" layoutY="268.0" prefWidth="216.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" />
+      <TextField fx:id="Gmail" layoutX="321.0" layoutY="218.0" prefWidth="216.0" promptText="User Gmail" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" />
+      <Button layoutX="376.0" layoutY="330.0" mnemonicParsing="false" onAction="#addUser" prefHeight="33.0" prefWidth="89.0" style="-fx-background-color: #0598ff;" text="SUBMIT" textFill="WHITE" />
+      <ImageView fitHeight="102.0" fitWidth="138.0" layoutX="360.0" layoutY="32.0">
+         <image>
+            <Image url="@../../../../../../../../Desktop/14353837.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>
