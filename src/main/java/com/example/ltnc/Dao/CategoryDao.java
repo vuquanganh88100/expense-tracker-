@@ -2,13 +2,11 @@ package com.example.ltnc.Dao;
 
 import com.example.ltnc.Entity.Category.CategoryEntiy;
 import com.example.ltnc.Entity.Category.CategoryEnum;
+import com.example.ltnc.Entity.ExpenseEntity;
 import com.example.ltnc.Entity.UserEntity;
 import com.example.ltnc.Utils.DatabaseUtils;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +22,9 @@ public class CategoryDao {
     private static final String COMBO_BOX="" +
             "SELECT * FROM category WHERE category.user_id = ?  AND category.type = ?" +
             "";
+    private static final String DELETE_CATEGORY="DELETE FROM category WHERE id = ?";
+    private static final String UPDATE_CATEGORY= "UPDATE category " +
+            "SET type = ?, name = ?, created_at = ? WHERE id = ?";
     public void add(CategoryEntiy categoryEntiy){
         try (Connection connection=databaseUtils.connect();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_CATEGORT)) {
@@ -108,6 +109,36 @@ public class CategoryDao {
             System.out.println("Error saving category: " + e.getMessage());
         }
         return categoryEntity;
+    }
+    public void delete(Integer id){
+        try (Connection connection = databaseUtils.connect();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CATEGORY)) {
+            preparedStatement.setInt(1,id);
+            preparedStatement.executeUpdate();
+            System.out.println("Delete category successfully");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error Delete category: " + e.getMessage());
+        }
+    }
+    public void update(CategoryEntiy categoryEntiy){
+        try (Connection connection = databaseUtils.connect();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_CATEGORY)) {
+            // Set các tham số
+            preparedStatement.setString(1, categoryEntiy.getCategoryEnum().getValue());
+            preparedStatement.setString(2, categoryEntiy.getName());
+            preparedStatement.setTimestamp(3,categoryEntiy.getCreatedtime());
+            preparedStatement.setLong(4, categoryEntiy.getId());
+
+            preparedStatement.executeUpdate();
+            System.out.println("Update expense successfully");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error update expense: " + e.getMessage());
+        }
+
     }
 
 }

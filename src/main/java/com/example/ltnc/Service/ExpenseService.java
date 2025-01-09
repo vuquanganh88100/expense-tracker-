@@ -5,7 +5,9 @@ import com.example.ltnc.Dao.ExpenseDao;
 import com.example.ltnc.Dao.UserDao;
 import com.example.ltnc.Entity.Category.CategoryEntiy;
 import com.example.ltnc.Entity.ExpenseEntity;
+import com.example.ltnc.Entity.FinancialRecord;
 import com.example.ltnc.Entity.IncomeEntity;
+import com.example.ltnc.Utils.ExportUtils;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -74,6 +76,20 @@ public class ExpenseService {
         expenseMoney.put("day",sumExpenseDay);
         expenseMoney.put("total",sumExpenseTotal);
         return expenseMoney;
+    }
+    public String exportExpensesToExcel(LocalDate startDate, LocalDate endDate) throws Exception {
+
+        ExpenseDao expenseDao = new ExpenseDao();
+        List<ExpenseEntity> expenses = expenseDao.getExpensesByDateRange(startDate, endDate);
+
+        String filePath = "Expenses_" + startDate + "_to_" + endDate + ".xlsx";
+        ExportUtils.createFinancialExcel(expenses, filePath);
+
+        return filePath;
+    }
+    public void delete(int expenseId) {
+        ExpenseDao expenseDao = new ExpenseDao();
+        expenseDao.delete(expenseId);
     }
 
 }

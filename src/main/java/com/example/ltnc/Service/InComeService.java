@@ -7,6 +7,7 @@ import com.example.ltnc.Dao.UserDao;
 import com.example.ltnc.Entity.Category.CategoryEntiy;
 import com.example.ltnc.Entity.ExpenseEntity;
 import com.example.ltnc.Entity.IncomeEntity;
+import com.example.ltnc.Utils.ExportUtils;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -75,6 +76,16 @@ public class InComeService {
         incomeMoney.put("day",sumIncomeDay);
         incomeMoney.put("total",sumIncomeTotal);
         return incomeMoney;
+    }
+    public String exportIncomeToExcel(LocalDate startDate, LocalDate endDate) throws Exception {
+        IncomeDAO incomeDAO = new IncomeDAO();
+
+        List<IncomeEntity> incomes = incomeDAO.getIncomeByDateRange(startDate, endDate);
+
+        String filePath = "Income_" + startDate + "_to_" + endDate + ".xlsx";
+        ExportUtils.createFinancialExcel(incomes, filePath);
+
+        return filePath;
     }
 
 }

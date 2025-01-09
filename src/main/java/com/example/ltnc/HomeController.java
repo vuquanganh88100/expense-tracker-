@@ -29,6 +29,7 @@ public class HomeController {
         if (userId == -1) {
             redirectToLogin();
         } else {
+            dashboard();
             System.out.println("User ID hiện tại: " + userId);
         }
     }

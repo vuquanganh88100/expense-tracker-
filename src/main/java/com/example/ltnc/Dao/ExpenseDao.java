@@ -98,4 +98,31 @@ public class ExpenseDao {
             System.out.println("Error Delete expense: " + e.getMessage());
         }
     }
+
+    public List<ExpenseEntity> getExpensesByDateRange(LocalDate startDate, LocalDate endDate) {
+        List<ExpenseEntity> expenses = new ArrayList<>();
+        String query = "SELECT * FROM expense WHERE date >= ? AND date <= ?";
+        try (Connection connection = databaseUtils.connect();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setTimestamp(1, Timestamp.valueOf(startDate.atStartOfDay()));
+            preparedStatement.setTimestamp(2, Timestamp.valueOf(endDate.atTime(23, 59, 59)));
+//            preparedStatement.setInt(3, userId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                ExpenseEntity expense = new ExpenseEntity();
+                expense.setId(resultSet.getInt("id"));
+                expense.setItem(resultSet.getString("item"));
+                expense.setDescription(resultSet.getString("description"));
+                expense.setMoney(resultSet.getLong("money"));
+                expense.setDate(resultSet.getDate("date").toLocalDate());
+                expense.setCategoryEntiy(new CategoryDao().getCategoryById(resultSet.getInt("category_id")));
+                expenses.add(expense);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return expenses;
+    }
 }

@@ -5,7 +5,7 @@ import com.example.ltnc.Entity.Category.CategoryEntiy;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 
-public class IncomeEntity {
+public class IncomeEntity implements FinancialRecord {
     private int id;
     private UserEntity user;
     private CategoryEntiy categoryEntiy;
@@ -77,6 +77,16 @@ public class IncomeEntity {
 
     public LocalDate getDate() {
         return date;
+    }
+
+    @Override
+    public Timestamp getCreatedAt() {
+        return null;
+    }
+
+    @Override
+    public String getCategoryName() {
+        return null;
     }
 
     public void setDate(LocalDate date) {

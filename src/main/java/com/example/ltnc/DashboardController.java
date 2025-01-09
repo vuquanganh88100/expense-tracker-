@@ -6,6 +6,8 @@ import com.example.ltnc.Service.SessionManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Map;
 
 public class DashboardController {
@@ -40,15 +42,15 @@ public class DashboardController {
         Map<String, Long> statisticIncome = inComeService.statisticIncome(currentId);
         ExpenseService expenseService=new ExpenseService();
         Map<String,Long>statisticExpense=expenseService.statísticExpense(currentId);
-        // Cập nhật các giá trị thu nhập vào Label
-        todayIncomeLabel.setText(String.valueOf(statisticIncome.getOrDefault("day", 0L)));
-        monthIncomeLabel.setText(String.valueOf(statisticIncome.getOrDefault("month", 0L)));
-        yearIncomeLabel.setText(String.valueOf(statisticIncome.getOrDefault("year", 0L)));
-        totalIncomeLabel.setText(String.valueOf(statisticIncome.getOrDefault("total", 0L)));
 
-        totalExpenseLabel.setText(String.valueOf(statisticExpense.getOrDefault("total", 0L)));
-        monthExpenseLabel.setText(String.valueOf(statisticExpense.getOrDefault("month", 0L)));
-        yearExpenseLabel.setText(String.valueOf(statisticExpense.getOrDefault("year", 0L)));
-        todayExpenseLabel.setText(String.valueOf(statisticExpense.getOrDefault("today", 0L)));
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));todayIncomeLabel.setText(numberFormat.format(statisticIncome.getOrDefault("day", 0L)));
+        monthIncomeLabel.setText(numberFormat.format(statisticIncome.getOrDefault("month", 0L)));
+        yearIncomeLabel.setText(numberFormat.format(statisticIncome.getOrDefault("year", 0L)));
+        totalIncomeLabel.setText(numberFormat.format(statisticIncome.getOrDefault("total", 0L)));
+
+        todayExpenseLabel.setText(numberFormat.format(statisticExpense.getOrDefault("today", 0L)));
+        monthExpenseLabel.setText(numberFormat.format(statisticExpense.getOrDefault("month", 0L)));
+        yearExpenseLabel.setText(numberFormat.format(statisticExpense.getOrDefault("year", 0L)));
+        totalExpenseLabel.setText(numberFormat.format(statisticExpense.getOrDefault("total", 0L)));
     }
 }
