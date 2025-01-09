@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<?import javafx.scene.control.TextArea?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ltnc.ManageStudentController">
+   <children>
+      <Label layoutX="38.0" layoutY="99.0" text="StudentId:" />
+      <TextField fx:id="studentIdFieldName" layoutX="115.0" layoutY="95.0" prefHeight="26.0" prefWidth="67.0" />
+      <Label layoutX="225.0" layoutY="99.0" text="CourseId" />
+      <Label layoutX="414.0" layoutY="99.0" text="Semeter:" />
+      <TextField fx:id="courseIdFieldName" layoutX="279.0" layoutY="95.0" prefHeight="26.0" prefWidth="94.0" />
+      <TextField fx:id="semeterFieldName" layoutX="472.0" layoutY="95.0" prefHeight="26.0" prefWidth="94.0" />
+      <Button layoutX="239.0" layoutY="175.0" mnemonicParsing="false" onAction="#submit" text="Show Grade" />
+      <TextArea fx:id="resultArea" layoutX="50.0" layoutY="250.0" prefHeight="100.0" prefWidth="500.0" />
+   </children>
+</AnchorPane>

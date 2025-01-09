@@ -1,30 +1,28 @@
 package com.example.ltnc.Entity;
 
-import com.example.ltnc.Entity.Category.CategoryEntiy;
+import com.example.ltnc.Entity.Category.CategoryEntity;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Date;
 
-public class ExpenseEntity {
+public class ExpenseEntity implements FinancialRecord{
     public ExpenseEntity(){
 
     }
     private int id;
     private UserEntity user;
-    private CategoryEntiy categoryEntiy;
+    private CategoryEntity categoryEntity;
     private String item;
     private String description;
     private Long money;
     private LocalDate date;
-    private Timestamp created_at;
-    private String categoyName;
-    public Timestamp getCreated_at() {
-        return created_at;
-    }
+    private Timestamp createdAt;
+    private String categoryName;
+
 
     public void setCreated_at(Timestamp created_at) {
-        this.created_at = created_at;
+        this.createdAt = created_at;
     }
 
     public int getId() {
@@ -43,12 +41,12 @@ public class ExpenseEntity {
         this.user = user;
     }
 
-    public CategoryEntiy getCategoryEntiy() {
-        return categoryEntiy;
+    public CategoryEntity getCategoryEntiy() {
+        return categoryEntity;
     }
 
-    public void setCategoryEntiy(CategoryEntiy categoryEntiy) {
-        this.categoryEntiy = categoryEntiy;
+    public void setCategoryEntiy(CategoryEntity categoryEntity) {
+        this.categoryEntity = categoryEntity;
     }
 
     public String getItem() {
@@ -79,18 +77,29 @@ public class ExpenseEntity {
         return date;
     }
 
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    @Override
+    public String getCategoryName() {
+        return this.categoryName != null ? this.categoryName :
+                (this.categoryEntity != null ? this.categoryEntity.getName() : "");
+    }
+
     public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public ExpenseEntity(UserEntity user, CategoryEntiy categoryEntiy, String item, String description, Long money, LocalDate date, Timestamp created_at) {
+    public ExpenseEntity(UserEntity user, CategoryEntity categoryEntiy, String item, String description, Long money, LocalDate date, Timestamp createdAt) {
 
         this.user = user;
-        this.categoryEntiy = categoryEntiy;
+        this.categoryEntity = categoryEntiy;
         this.item = item;
         this.description = description;
         this.money = money;
         this.date = date;
-        this.created_at = created_at;
+        this.createdAt = createdAt;
     }
 }

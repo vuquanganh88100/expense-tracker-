@@ -1,6 +1,5 @@
 package com.example.ltnc.Dao;
-
-import com.example.ltnc.Entity.Category.CategoryEntiy;
+import com.example.ltnc.Entity.Category.CategoryEntity;
 import com.example.ltnc.Entity.ExpenseEntity;
 import com.example.ltnc.Entity.UserEntity;
 import com.example.ltnc.Utils.DatabaseUtils;
@@ -17,24 +16,26 @@ public class ExpenseDao {
             "VALUES (?, ?, ?, ?, ?, ?, ?);";
     private static final String GET_EXPENSE="SELECT * FROM expense inner JOIN category ON expense.category_id=category.id\n" +
             "WHERE expense.user_id = ?";
+    private static final String UPDATE_EXPENSE= "UPDATE expense " +
+            "SET category_id=? ,item = ?, description = ?, money = ?,created_at = ?, date = ? WHERE id = ?";
+    private static final String DELETE_EXPENSE="DELETE FROM expense WHERE id = ? ";
     public void add(ExpenseEntity expense){
         try (Connection connection = databaseUtils.connect();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_EXPENSE)) {
-
             // Set các tham số
             preparedStatement.setInt(1, expense.getUser().getId());
             preparedStatement.setInt(2, expense.getCategoryEntiy().getId());
             preparedStatement.setString(3, expense.getItem());
             preparedStatement.setString(4, expense.getDescription());
             preparedStatement.setLong(5, expense.getMoney());
-            preparedStatement.setTimestamp(6,expense.getCreated_at());
+            preparedStatement.setTimestamp(6,expense.getCreatedAt());
             preparedStatement.setDate(7, Date.valueOf(expense.getDate()));
             preparedStatement.executeUpdate();
-            System.out.println("Insert expense successfully");
+            System.out.println("Update expense successfully");
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Error insert expense: " + e.getMessage());
+            System.out.println("Error update expense: " + e.getMessage());
         }
 
     }
@@ -49,7 +50,7 @@ public class ExpenseDao {
                 expense.setId(resultSet.getInt("id"));
                 expense.setDate(resultSet.getDate("date").toLocalDate());
                 expense.setItem(resultSet.getString("item"));
-                CategoryEntiy categoryEntity = new CategoryEntiy();
+                CategoryEntity categoryEntity = new CategoryEntity();
                 categoryEntity.setName(resultSet.getString("name"));
                 expense.setCategoryEntiy(categoryEntity);
                 expense.setDescription(resultSet.getString("description"));
@@ -64,4 +65,65 @@ public class ExpenseDao {
         }
         return expenseEntityList;
     }
+    public void update(ExpenseEntity expense){
+        try (Connection connection = databaseUtils.connect();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_EXPENSE)) {
+            // Set các tham số
+            preparedStatement.setInt(1, expense.getCategoryEntiy().getId());
+            preparedStatement.setString(2, expense.getItem());
+            preparedStatement.setString(3, expense.getDescription());
+            preparedStatement.setLong(4, expense.getMoney());
+            preparedStatement.setTimestamp(5,expense.getCreatedAt());
+            preparedStatement.setDate(6, Date.valueOf(expense.getDate()));
+            preparedStatement.setInt(7,expense.getId());
+            preparedStatement.executeUpdate();
+            System.out.println("Update expense successfully");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error update expense: " + e.getMessage());
+        }
+
+    }
+
+    public void deleteExpense(int expenseId) {
+        String sql = "DELETE FROM expense WHERE id = ?";
+        try (Connection connection = databaseUtils.connect();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, expenseId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<ExpenseEntity> getExpensesByDateRange(LocalDate startDate, LocalDate endDate) {
+        List<ExpenseEntity> expenses = new ArrayList<>();
+        String query = "SELECT * FROM expense WHERE date >= ? AND date <= ?";
+        try (Connection connection = databaseUtils.connect();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setTimestamp(1, Timestamp.valueOf(startDate.atStartOfDay()));
+            preparedStatement.setTimestamp(2, Timestamp.valueOf(endDate.atTime(23, 59, 59)));
+//            preparedStatement.setInt(3, userId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                ExpenseEntity expense = new ExpenseEntity();
+                expense.setId(resultSet.getInt("id"));
+                expense.setItem(resultSet.getString("item"));
+                expense.setDescription(resultSet.getString("description"));
+                expense.setMoney(resultSet.getLong("money"));
+                expense.setDate(resultSet.getDate("date").toLocalDate());
+                expense.setCategoryEntiy(new CategoryDao().getCategoryById(resultSet.getInt("category_id")));
+                expenses.add(expense);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return expenses;
+    }
+
 }
+

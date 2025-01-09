@@ -6,9 +6,11 @@ public class DatabaseUtils {
     public Connection connect(){
         Connection conn = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/quanlychitieu", "root", "882002");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/quanlychitieu", "root", "8023");
+//            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ltnc", "root", "882002");
+
             System.out.println("Kết nối thành công");
         } catch (SQLException e) {
             e.printStackTrace();
