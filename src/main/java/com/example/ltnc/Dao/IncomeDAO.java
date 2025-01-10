@@ -1,6 +1,6 @@
 package com.example.ltnc.Dao;
 
-import com.example.ltnc.Entity.Category.CategoryEntity;
+import com.example.ltnc.Entity.Category.CategoryEntiy;
 import com.example.ltnc.Entity.ExpenseEntity;
 import com.example.ltnc.Entity.IncomeEntity;
 import com.example.ltnc.Utils.DatabaseUtils;
@@ -38,7 +38,7 @@ public class IncomeDAO {
             preparedStatement.setString(3, income.getItem());
             preparedStatement.setString(4, income.getDescription());
             preparedStatement.setLong(5, income.getMoney());
-            preparedStatement.setTimestamp(6,income.getCreatedAt());
+            preparedStatement.setTimestamp(6,income.getCreated_at());
             preparedStatement.setDate(7, Date.valueOf(income.getDate()));
             preparedStatement.executeUpdate();
             System.out.println("Insert income successfully");
@@ -59,9 +59,9 @@ public class IncomeDAO {
                 incomeEntity.setId(resultSet.getInt("id"));
                 incomeEntity.setDate(resultSet.getDate("date").toLocalDate());
                 incomeEntity.setItem(resultSet.getString("item"));
-                CategoryEntity categoryEntity = new CategoryEntity();
+                CategoryEntiy categoryEntity = new CategoryEntiy();
                 categoryEntity.setName(resultSet.getString("name"));
-                incomeEntity.setCategoryEntity(categoryEntity);
+                incomeEntity.setCategoryEntiy(categoryEntity);
                 incomeEntity.setDescription(resultSet.getString("description"));
                 incomeEntity.setMoney(resultSet.getLong("money"));
                 incomeEntities.add(incomeEntity);
@@ -82,7 +82,7 @@ public class IncomeDAO {
             preparedStatement.setString(2, income.getItem());
             preparedStatement.setString(3, income.getDescription());
             preparedStatement.setLong(4, income.getMoney());
-            preparedStatement.setTimestamp(5,income.getCreatedAt());
+            preparedStatement.setTimestamp(5,income.getCreated_at());
             preparedStatement.setDate(6, Date.valueOf(income.getDate()));
             preparedStatement.setInt(7,income.getId());
             preparedStatement.executeUpdate();
@@ -94,7 +94,7 @@ public class IncomeDAO {
         }
 
     }
-    public void deleteIncome(Integer id){
+    public void delete(Integer id){
         try (Connection connection = databaseUtils.connect();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_INCOME)) {
             preparedStatement.setInt(1,id);
@@ -125,7 +125,7 @@ public class IncomeDAO {
                 income.setDescription(resultSet.getString("description"));
                 income.setMoney(resultSet.getLong("money"));
                 income.setDate(resultSet.getDate("date").toLocalDate());
-                income.setCategoryEntity(new CategoryDao().getCategoryById(resultSet.getInt("category_id")));
+                income.setCategoryEntiy(new CategoryDao().getCategoryById(resultSet.getInt("category_id")));
                 incomes.add(income);
             }
         } catch (Exception e) {
@@ -133,5 +133,4 @@ public class IncomeDAO {
         }
         return incomes;
     }
-
 }

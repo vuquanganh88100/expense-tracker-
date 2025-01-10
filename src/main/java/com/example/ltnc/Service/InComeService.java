@@ -4,7 +4,8 @@ import com.example.ltnc.Dao.CategoryDao;
 import com.example.ltnc.Dao.ExpenseDao;
 import com.example.ltnc.Dao.IncomeDAO;
 import com.example.ltnc.Dao.UserDao;
-import com.example.ltnc.Entity.Category.CategoryEntity;
+import com.example.ltnc.Entity.Category.CategoryEntiy;
+import com.example.ltnc.Entity.ExpenseEntity;
 import com.example.ltnc.Entity.IncomeEntity;
 import com.example.ltnc.Utils.ExportUtils;
 
@@ -19,10 +20,10 @@ public class InComeService {
                     String description, LocalDate date){
         UserDao userDao=new UserDao();
         CategoryDao categoryDao=new CategoryDao();
-        CategoryEntity categoryEntity = new CategoryEntity();
+        CategoryEntiy categoryEntiy=new CategoryEntiy();
         IncomeDAO income=new IncomeDAO();
-        categoryEntity = categoryDao.getCategoryById(categoryId);
-        IncomeEntity incomeEntity=new IncomeEntity(userDao.getInfo(),categoryEntity,
+        categoryEntiy=categoryDao.getCategoryById(categoryId);
+        IncomeEntity incomeEntity=new IncomeEntity(userDao.getInfo(),categoryEntiy,
                 item,description,cost,date, new Timestamp(System.currentTimeMillis()));
         income.add(incomeEntity);
     }
@@ -32,7 +33,7 @@ public class InComeService {
     }
     public void update(Integer categoryId,String item,Long cost,String description,LocalDate date,Integer expenseId){
         CategoryDao categoryDao=new CategoryDao();
-        CategoryEntity categoryEntiy=new CategoryEntity();
+        CategoryEntiy categoryEntiy=new CategoryEntiy();
         IncomeDAO incomeDAO=new IncomeDAO();
         categoryEntiy=categoryDao.getCategoryById(categoryId);
         IncomeEntity income=new IncomeEntity();
@@ -40,7 +41,7 @@ public class InComeService {
         income.setItem(item);
         income.setDescription(description);
         income.setDate(date);
-        income.setCategoryEntity(categoryEntiy);
+        income.setCategoryEntiy(categoryEntiy);
         income.setCreated_at(new Timestamp(System.currentTimeMillis()));
         income.setId(expenseId);
         incomeDAO.update(income);
@@ -76,12 +77,6 @@ public class InComeService {
         incomeMoney.put("total",sumIncomeTotal);
         return incomeMoney;
     }
-
-    public void delete(int incomeId) {
-        IncomeDAO incomeDAO = new IncomeDAO();
-        incomeDAO.deleteIncome(incomeId);
-    }
-
     public String exportIncomeToExcel(LocalDate startDate, LocalDate endDate) throws Exception {
         IncomeDAO incomeDAO = new IncomeDAO();
 
@@ -92,4 +87,5 @@ public class InComeService {
 
         return filePath;
     }
+
 }

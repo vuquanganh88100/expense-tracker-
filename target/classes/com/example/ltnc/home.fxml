@@ -8,12 +8,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #f8f9fa;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ltnc.Controller.HomeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #f8f9fa;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ltnc.HomeController">
    <children>
       <!-- HBox to split the screen into left and right sections -->
-      <HBox layoutX="0.0" layoutY="0.0" prefHeight="600.0" prefWidth="800.0">
+      <HBox layoutX="0.0" layoutY="0.0" prefHeight="600.0" prefWidth="900.0">
          <!-- Left Menu (VBox) -->
-         <VBox alignment="CENTER" prefHeight="600.0" prefWidth="200.0" spacing="20.0" style="-fx-padding: 20;">
+         <VBox alignment="CENTER" prefHeight="600.0" prefWidth="200.0" spacing="20.0" style="-fx-padding: 20; -fx-background-color: #343a40;">
             <children>
                <!-- Logo Section -->
                <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
@@ -23,38 +23,29 @@
                </ImageView>
 
                <!-- Dashboard Button -->
-               <Button fx:id="dashboardButton" mnemonicParsing="false" onAction="#dashboard" prefHeight="50.0" prefWidth="200.0" styleClass="menu-button" text="  Dashboard">
-                  <font>
-                     <Font size="18.0" />
-                  </font>
+               <Button fx:id="dashboardButton" mnemonicParsing="false" onAction="#dashboard" prefHeight="50.0" prefWidth="200.0" text="  Dashboard" style="-fx-background-color: #495057; -fx-text-fill: white; -fx-font-size: 18; -fx-border-radius: 5; -fx-background-radius: 5;">
                </Button>
 
                <!-- CategoryController Button -->
-               <Button fx:id="categoryButton" mnemonicParsing="false" onAction="#category" prefHeight="50.0" prefWidth="200.0" styleClass="menu-button" text="  Category">
-                  <font>
-                     <Font size="18.0" />
-                  </font>
+               <Button fx:id="categoryButton" mnemonicParsing="false" onAction="#category" prefHeight="50.0" prefWidth="200.0" text="  Category" style="-fx-background-color: #495057; -fx-text-fill: white; -fx-font-size: 18; -fx-border-radius: 5; -fx-background-radius: 5;">
                </Button>
 
                <!-- Expense Button -->
-               <Button fx:id="expenseButton" mnemonicParsing="false" onAction="#expense" prefHeight="50.0" prefWidth="200.0" styleClass="menu-button" text="  Expense">
-                  <font>
-                     <Font size="18.0" />
-                  </font>
+               <Button fx:id="expenseButton" mnemonicParsing="false" onAction="#expense" prefHeight="50.0" prefWidth="200.0" text="  Expense" style="-fx-background-color: #495057; -fx-text-fill: white; -fx-font-size: 18; -fx-border-radius: 5; -fx-background-radius: 5;">
                </Button>
 
                <!-- Income Button -->
-               <Button fx:id="incomeButton" mnemonicParsing="false" onAction="#income" prefHeight="50.0" prefWidth="200.0" styleClass="menu-button" text="  Income">
-                  <font>
-                     <Font size="18.0" />
-                  </font>
+               <Button fx:id="incomeButton" mnemonicParsing="false" onAction="#income" prefHeight="50.0" prefWidth="200.0" text="  Income" style="-fx-background-color: #495057; -fx-text-fill: white; -fx-font-size: 18; -fx-border-radius: 5; -fx-background-radius: 5;">
                </Button>
-               <Button mnemonicParsing="false" onAction="#logout" text="Logout" />
+
+               <!-- Logout Button -->
+               <Button mnemonicParsing="false" onAction="#logout" text="Logout" style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-font-size: 18; -fx-border-radius: 5; -fx-background-radius: 5;">
+               </Button>
             </children>
          </VBox>
 
          <!-- Right Content Area -->
-         <AnchorPane fx:id="contentArea" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #ffffff;">
+         <AnchorPane fx:id="contentArea" prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #ffffff;">
             <!-- Default content (Dashboard) will appear here -->
          </AnchorPane>
       </HBox>

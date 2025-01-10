@@ -3,8 +3,9 @@ package com.example.ltnc.Service;
 import com.example.ltnc.Dao.CategoryDao;
 import com.example.ltnc.Dao.ExpenseDao;
 import com.example.ltnc.Dao.UserDao;
-import com.example.ltnc.Entity.Category.CategoryEntity;
+import com.example.ltnc.Entity.Category.CategoryEntiy;
 import com.example.ltnc.Entity.ExpenseEntity;
+import com.example.ltnc.Entity.FinancialRecord;
 import com.example.ltnc.Entity.IncomeEntity;
 import com.example.ltnc.Utils.ExportUtils;
 
@@ -16,15 +17,14 @@ import java.util.List;
 import java.util.Map;
 
 public class ExpenseService {
-
     public void add(Integer categoryId, String item, Long cost ,
                     String description, LocalDate date){
         UserDao userDao=new UserDao();
-        CategoryDao categoryDao = new CategoryDao();
-        CategoryEntity categoryEntiy = new CategoryEntity();
-        ExpenseDao expenseDao = new ExpenseDao();
+        CategoryDao categoryDao=new CategoryDao();
+        CategoryEntiy categoryEntiy=new CategoryEntiy();
+        ExpenseDao expenseDao=new ExpenseDao();
         categoryEntiy=categoryDao.getCategoryById(categoryId);
-        ExpenseEntity expense = new ExpenseEntity(userDao.getInfo(),categoryEntiy,
+        ExpenseEntity expense=new ExpenseEntity(userDao.getInfo(),categoryEntiy,
                 item,description,cost,date, new Timestamp(System.currentTimeMillis()));
         expenseDao.add(expense);
     }
@@ -34,7 +34,7 @@ public class ExpenseService {
     }
     public void update(Integer categoryId,String item,Long cost,String description,LocalDate date,Integer expenseId){
         CategoryDao categoryDao=new CategoryDao();
-        CategoryEntity categoryEntiy=new CategoryEntity();
+        CategoryEntiy categoryEntiy=new CategoryEntiy();
         ExpenseDao expenseDao=new ExpenseDao();
         categoryEntiy=categoryDao.getCategoryById(categoryId);
         ExpenseEntity expense=new ExpenseEntity();
@@ -77,12 +77,6 @@ public class ExpenseService {
         expenseMoney.put("total",sumExpenseTotal);
         return expenseMoney;
     }
-
-    public void delete(int expenseId) {
-        ExpenseDao expenseDao = new ExpenseDao();
-        expenseDao.deleteExpense(expenseId);
-    }
-
     public String exportExpensesToExcel(LocalDate startDate, LocalDate endDate) throws Exception {
 
         ExpenseDao expenseDao = new ExpenseDao();
@@ -93,4 +87,9 @@ public class ExpenseService {
 
         return filePath;
     }
+    public void delete(int expenseId) {
+        ExpenseDao expenseDao = new ExpenseDao();
+        expenseDao.delete(expenseId);
+    }
+
 }

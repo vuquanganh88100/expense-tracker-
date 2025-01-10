@@ -4,17 +4,15 @@ import com.example.ltnc.Dao.CategoryDao;
 import com.example.ltnc.Dao.ExpenseDao;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.ZoneId;
 
-
-import com.example.ltnc.Service.ExpenseService;
 import com.example.ltnc.Service.SessionManager;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 public class ImportUtils {
     private final CategoryDao categoryDao = new CategoryDao();
 
@@ -34,7 +32,7 @@ public class ImportUtils {
 
         for (int i = 1; i <= sheet.getLastRowNum(); i++) {
             Row row = sheet.getRow(i);
-            if (row == null) continue;
+            if (row == null || isRowEmpty(row)) continue;
 
             try {
                 // Đọc dữ liệu từ file Excel
@@ -67,5 +65,17 @@ public class ImportUtils {
         fileInputStream.close();
     }
 
+    private boolean isRowEmpty(Row row) {
+        if (row == null) {
+            return true;
+        }
+        for (int cellNum = 0; cellNum < row.getLastCellNum(); cellNum++) {
+            Cell cell = row.getCell(cellNum);
+            if (cell != null && cell.getCellType() != CellType.BLANK) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.example.ltnc.Dao;
-import com.example.ltnc.Entity.Category.CategoryEntity;
+
+import com.example.ltnc.Entity.Category.CategoryEntiy;
 import com.example.ltnc.Entity.ExpenseEntity;
 import com.example.ltnc.Entity.UserEntity;
 import com.example.ltnc.Utils.DatabaseUtils;
@@ -28,7 +29,7 @@ public class ExpenseDao {
             preparedStatement.setString(3, expense.getItem());
             preparedStatement.setString(4, expense.getDescription());
             preparedStatement.setLong(5, expense.getMoney());
-            preparedStatement.setTimestamp(6,expense.getCreatedAt());
+            preparedStatement.setTimestamp(6,expense.getCreated_at());
             preparedStatement.setDate(7, Date.valueOf(expense.getDate()));
             preparedStatement.executeUpdate();
             System.out.println("Update expense successfully");
@@ -50,7 +51,7 @@ public class ExpenseDao {
                 expense.setId(resultSet.getInt("id"));
                 expense.setDate(resultSet.getDate("date").toLocalDate());
                 expense.setItem(resultSet.getString("item"));
-                CategoryEntity categoryEntity = new CategoryEntity();
+                CategoryEntiy categoryEntity = new CategoryEntiy();
                 categoryEntity.setName(resultSet.getString("name"));
                 expense.setCategoryEntiy(categoryEntity);
                 expense.setDescription(resultSet.getString("description"));
@@ -73,7 +74,7 @@ public class ExpenseDao {
             preparedStatement.setString(2, expense.getItem());
             preparedStatement.setString(3, expense.getDescription());
             preparedStatement.setLong(4, expense.getMoney());
-            preparedStatement.setTimestamp(5,expense.getCreatedAt());
+            preparedStatement.setTimestamp(5,expense.getCreated_at());
             preparedStatement.setDate(6, Date.valueOf(expense.getDate()));
             preparedStatement.setInt(7,expense.getId());
             preparedStatement.executeUpdate();
@@ -85,16 +86,16 @@ public class ExpenseDao {
         }
 
     }
-
-    public void deleteExpense(int expenseId) {
-        String sql = "DELETE FROM expense WHERE id = ?";
+    public void delete(Integer id){
         try (Connection connection = databaseUtils.connect();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_EXPENSE)) {
+           preparedStatement.setInt(1,id);
+            preparedStatement.executeUpdate();
+            System.out.println("Delete expense successfully");
 
-            statement.setInt(1, expenseId);
-            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Error Delete expense: " + e.getMessage());
         }
     }
 
@@ -124,6 +125,4 @@ public class ExpenseDao {
         }
         return expenses;
     }
-
 }
-

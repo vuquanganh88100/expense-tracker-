@@ -1,28 +1,30 @@
 package com.example.ltnc.Entity;
 
-import com.example.ltnc.Entity.Category.CategoryEntity;
+import com.example.ltnc.Entity.Category.CategoryEntiy;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Date;
 
-public class ExpenseEntity implements FinancialRecord{
+public class ExpenseEntity implements FinancialRecord {
     public ExpenseEntity(){
 
     }
     private int id;
     private UserEntity user;
-    private CategoryEntity categoryEntity;
+    private CategoryEntiy categoryEntiy;
     private String item;
     private String description;
     private Long money;
     private LocalDate date;
-    private Timestamp createdAt;
-    private String categoryName;
-
+    private Timestamp created_at;
+    private String categoyName;
+    public Timestamp getCreated_at() {
+        return created_at;
+    }
 
     public void setCreated_at(Timestamp created_at) {
-        this.createdAt = created_at;
+        this.created_at = created_at;
     }
 
     public int getId() {
@@ -41,12 +43,12 @@ public class ExpenseEntity implements FinancialRecord{
         this.user = user;
     }
 
-    public CategoryEntity getCategoryEntiy() {
-        return categoryEntity;
+    public CategoryEntiy getCategoryEntiy() {
+        return categoryEntiy;
     }
 
-    public void setCategoryEntiy(CategoryEntity categoryEntity) {
-        this.categoryEntity = categoryEntity;
+    public void setCategoryEntiy(CategoryEntiy categoryEntiy) {
+        this.categoryEntiy = categoryEntiy;
     }
 
     public String getItem() {
@@ -77,29 +79,28 @@ public class ExpenseEntity implements FinancialRecord{
         return date;
     }
 
-
+    @Override
     public Timestamp getCreatedAt() {
-        return createdAt;
+        return null;
     }
 
     @Override
     public String getCategoryName() {
-        return this.categoryName != null ? this.categoryName :
-                (this.categoryEntity != null ? this.categoryEntity.getName() : "");
+        return categoryEntiy.getName();
     }
 
     public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public ExpenseEntity(UserEntity user, CategoryEntity categoryEntiy, String item, String description, Long money, LocalDate date, Timestamp createdAt) {
+    public ExpenseEntity(UserEntity user, CategoryEntiy categoryEntiy, String item, String description, Long money, LocalDate date, Timestamp created_at) {
 
         this.user = user;
-        this.categoryEntity = categoryEntiy;
+        this.categoryEntiy = categoryEntiy;
         this.item = item;
         this.description = description;
         this.money = money;
         this.date = date;
-        this.createdAt = createdAt;
+        this.created_at = created_at;
     }
 }
