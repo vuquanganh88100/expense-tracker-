@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -23,7 +24,7 @@ public class RegisterController {
     @FXML
     private TextField Gmail;
     @FXML
-    private TextField Password;
+    private PasswordField Password;
     @FXML
     private Button submitButton;
     private static UserService userService=new UserService();

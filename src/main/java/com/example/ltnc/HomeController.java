@@ -25,7 +25,6 @@ public class HomeController {
     @FXML
     public void initialize() {
         userId = SessionManager.getInstance().getUserId();
-
         if (userId == -1) {
             redirectToLogin();
         } else {
@@ -86,7 +85,5 @@ public class HomeController {
                 e.printStackTrace();
             }
         }
-
-
 
 }

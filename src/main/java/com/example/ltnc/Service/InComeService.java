@@ -79,8 +79,9 @@ public class InComeService {
     }
     public String exportIncomeToExcel(LocalDate startDate, LocalDate endDate) throws Exception {
         IncomeDAO incomeDAO = new IncomeDAO();
+        int currentUserId=SessionManager.getInstance().getUserId();;
 
-        List<IncomeEntity> incomes = incomeDAO.getIncomeByDateRange(startDate, endDate);
+        List<IncomeEntity> incomes = incomeDAO.getIncomeByDateRange(startDate, endDate,currentUserId);
 
         String filePath = "Income_" + startDate + "_to_" + endDate + ".xlsx";
         ExportUtils.createFinancialExcel(incomes, filePath);

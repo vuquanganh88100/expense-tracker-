@@ -18,7 +18,7 @@ public class ImportUtils {
 
     private final ExpenseDao expenseDao = new ExpenseDao();
 
-    public void importFinancialFromExcel(String filePath, FinancialImport financialImport) throws IOException, IOException {
+    public void importFinancialFromExcel(String filePath, FinancialImport financialImport) throws IOException {
         // Mở file Excel
         FileInputStream fileInputStream = new FileInputStream(filePath);
         Workbook workbook = new XSSFWorkbook(fileInputStream);
@@ -32,7 +32,7 @@ public class ImportUtils {
 
         for (int i = 1; i <= sheet.getLastRowNum(); i++) {
             Row row = sheet.getRow(i);
-            if (row == null) continue;
+            if (row == null || isRowEmpty(row)) continue;
 
             try {
                 // Đọc dữ liệu từ file Excel
@@ -63,6 +63,19 @@ public class ImportUtils {
         // Đóng workbook và stream
         workbook.close();
         fileInputStream.close();
+    }
+
+    private boolean isRowEmpty(Row row) {
+        if (row == null) {
+            return true;
+        }
+        for (int cellNum = 0; cellNum < row.getLastCellNum(); cellNum++) {
+            Cell cell = row.getCell(cellNum);
+            if (cell != null && cell.getCellType() != CellType.BLANK) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

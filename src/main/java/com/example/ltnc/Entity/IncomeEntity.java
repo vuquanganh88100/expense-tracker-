@@ -86,7 +86,7 @@ public class IncomeEntity implements FinancialRecord {
 
     @Override
     public String getCategoryName() {
-        return null;
+        return getCategoryEntiy().getName();
     }
 
     public void setDate(LocalDate date) {

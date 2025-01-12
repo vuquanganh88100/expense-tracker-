@@ -99,14 +99,15 @@ public class ExpenseDao {
         }
     }
 
-    public List<ExpenseEntity> getExpensesByDateRange(LocalDate startDate, LocalDate endDate) {
+    public List<ExpenseEntity> getExpensesByDateRange(LocalDate startDate, LocalDate endDate , int userId) {
         List<ExpenseEntity> expenses = new ArrayList<>();
-        String query = "SELECT * FROM expense WHERE date >= ? AND date <= ?";
+        String query = "SELECT * FROM expense WHERE date >= ? AND date <= ? AND user_id = ?\n";
         try (Connection connection = databaseUtils.connect();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setTimestamp(1, Timestamp.valueOf(startDate.atStartOfDay()));
             preparedStatement.setTimestamp(2, Timestamp.valueOf(endDate.atTime(23, 59, 59)));
+            preparedStatement.setInt(3 ,userId);
 //            preparedStatement.setInt(3, userId);
 
             ResultSet resultSet = preparedStatement.executeQuery();

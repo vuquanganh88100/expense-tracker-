@@ -78,9 +78,9 @@ public class ExpenseService {
         return expenseMoney;
     }
     public String exportExpensesToExcel(LocalDate startDate, LocalDate endDate) throws Exception {
-
+        int currentUserId=SessionManager.getInstance().getUserId();;
         ExpenseDao expenseDao = new ExpenseDao();
-        List<ExpenseEntity> expenses = expenseDao.getExpensesByDateRange(startDate, endDate);
+        List<ExpenseEntity> expenses = expenseDao.getExpensesByDateRange(startDate, endDate,currentUserId);
 
         String filePath = "Expenses_" + startDate + "_to_" + endDate + ".xlsx";
         ExportUtils.createFinancialExcel(expenses, filePath);

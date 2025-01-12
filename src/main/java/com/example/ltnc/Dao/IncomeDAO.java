@@ -107,15 +107,15 @@ public class IncomeDAO {
         }
     }
 
-    public List<IncomeEntity> getIncomeByDateRange(LocalDate startDate, LocalDate endDate) {
+    public List<IncomeEntity> getIncomeByDateRange(LocalDate startDate, LocalDate endDate,int userId) {
         List<IncomeEntity> incomes = new ArrayList<>();
-        String query = "SELECT * FROM income WHERE date >= ? AND date <= ?";
+        String query = "SELECT * FROM income WHERE date >= ? AND date <= ? AND user_id = ?";
         try (Connection connection = databaseUtils.connect();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setTimestamp(1, Timestamp.valueOf(startDate.atStartOfDay()));
             preparedStatement.setTimestamp(2, Timestamp.valueOf(endDate.atTime(23, 59, 59)));
-//            preparedStatement.setInt(3, userId);
+            preparedStatement.setInt(3, userId);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {

@@ -2,11 +2,13 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ltnc.RegisterController">
     <children>
@@ -31,7 +33,7 @@
             </children>
         </AnchorPane>
       <TextField fx:id="UserName" layoutX="321.0" layoutY="162.0" prefHeight="25.0" prefWidth="216.0" promptText="User Name" style="-fx-border-color: #0598ff; -fx-background-color: transparent; -fx-border-width: 0px 0px 2px 0px;" />
-      <TextField fx:id="Password" layoutX="321.0" layoutY="268.0" prefWidth="216.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" />
+      <PasswordField fx:id="Password" layoutX="321.0" layoutY="268.0" prefWidth="216.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" />
       <TextField fx:id="Gmail" layoutX="321.0" layoutY="218.0" prefWidth="216.0" promptText="User Gmail" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" />
       <Button layoutX="376.0" layoutY="330.0" mnemonicParsing="false" onAction="#addUser" prefHeight="33.0" prefWidth="89.0" style="-fx-background-color: #0598ff;" text="SUBMIT" textFill="WHITE" />
       <ImageView fitHeight="102.0" fitWidth="138.0" layoutX="360.0" layoutY="32.0">
@@ -39,5 +41,20 @@
             <Image url="@../../../../../../../../Desktop/14353837.png" />
          </image>
       </ImageView>
+      <Text layoutX="288.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #0598ff;" text="👤">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Text>
+      <Text layoutX="288.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #0598ff;" text="🔒">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Text>
+      <Text layoutX="288.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #0598ff;" text="📧">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Text>
     </children>
 </AnchorPane>

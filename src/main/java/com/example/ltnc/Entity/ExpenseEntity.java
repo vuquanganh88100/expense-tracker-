@@ -8,7 +8,6 @@ import java.util.Date;
 
 public class ExpenseEntity implements FinancialRecord {
     public ExpenseEntity(){
-
     }
     private int id;
     private UserEntity user;
@@ -86,7 +85,7 @@ public class ExpenseEntity implements FinancialRecord {
 
     @Override
     public String getCategoryName() {
-        return null;
+        return getCategoryEntiy().getName();
     }
 
     public void setDate(LocalDate date) {
